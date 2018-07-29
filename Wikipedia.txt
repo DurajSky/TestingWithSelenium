@@ -1,0 +1,46 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
+
+public class WikiGetText{
+    public WebDriver driver;
+    public WebDriverWait wait;
+
+    @Before
+        public void setUp(){
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        wait = new WebDriverWait(driver,10);
+
+    }
+
+    @Test
+    public void testwiki() throws FileNotFoundException {
+        driver.get("https://pl.wikipedia.org/wiki/Wikipedia:Strona_g%C5%82%C3%B3wna");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("searchInput"))).sendKeys("Deep  Purple");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("searchButton"))).click();
+
+        WebElement lista = driver.findElement(By.xpath("/html/body/div[3]/div[3]/div[4]/div/p[1]"));
+        System.out.println(lista.getText());
+
+        PrintWriter zapisdeep = new PrintWriter("C:\\Users\\home\\Desktop\\plik.txt");
+        zapisdeep.print(lista.getText());
+        zapisdeep.close();
+    }
+
+@After
+    public void endoftest(){
+        driver.quit();
+}}
