@@ -24,6 +24,7 @@ public class LivescoreContactTest {
 
     @After
     public void End(){
+    driver.quit();
 
     }
 
