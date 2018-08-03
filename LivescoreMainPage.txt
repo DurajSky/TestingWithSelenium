@@ -22,6 +22,8 @@ public class LivescoreTest {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 15);
+        driver.get("http://www.livescore.com/");
+        driver.manage().window().maximize();
     }
 
     @After
@@ -31,8 +33,7 @@ public class LivescoreTest {
 
     @Test//Test 1 has to count the number of the columns on the left side, starting from "Home" to "More Countries"
     public void test1() {
-        driver.get("http://www.livescore.com/");
-        driver.manage().window().maximize();
+
         WebElement table = driver.findElement(By.xpath("//div[@class='left-bar']"));
 
         List<WebElement>listOfRows=table.findElements(By.tagName("li"));
@@ -41,8 +42,7 @@ public class LivescoreTest {
     }
     @Test// 2nd Test has to check if the link we entered is equal to that found in "England"
     public void test2(){
-        driver.get("http://www.livescore.com/");
-        driver.manage().window().maximize();
+        
         WebElement england = driver.findElement(By.linkText("England"));
         String link = england.getAttribute("href");
         System.out.println(link);
